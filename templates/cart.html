@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+    <h1>Cart</h1>
+    <ul id="cart-items"></ul>
+    <button onclick="checkout()">Checkout</button>
+
+    <script>
+        function loadCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartList = document.getElementById("cart-items");
+            cartList.innerHTML = cart.map(item => `<li>${item.name} - $${item.price} x ${item.quantity}</li>`).join("");
+        }
+
+        function checkout() {
+            let email = prompt("Enter your email for order confirmation:");
+            fetch("/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ cart: JSON.parse(localStorage.getItem("cart")), email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Order placed! Order ID: " + data.order_id);
+                localStorage.removeItem("cart");
+                window.location.href = "/";
+            });
+        }
+
+        loadCart();
+    </script>
+</body>
+</html>

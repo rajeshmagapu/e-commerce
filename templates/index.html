@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <ul>
+        {% for product in products %}
+        <li>
+            {{ product.name }} - ${{ product.price }}
+            <button onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }})">Add to Cart</button>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/cart">Go to Cart</a>
+    <script>
+        function addToCart(id, name, price) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push({ id, name, price, quantity: 1 });
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    </script>
+</body>
+</html>
