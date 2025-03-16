@@ -4,7 +4,7 @@ from email.message import EmailMessage
 def send_email(email, order_id, cart):
     msg = EmailMessage()
     msg['Subject'] = f"Order Confirmation - {order_id}"
-    msg['From'] = "yourstore@example.com"
+    msg['From'] = "rajeshmagapu@yahoo.com"
     msg['To'] = email
 
     cart_details = "\n".join([f"{item['name']} - ${item['price']} x {item['quantity']}" for item in cart])
