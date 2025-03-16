@@ -1,4 +1,3 @@
 flask
 flask-mail
 gunicorn
-sqlite3
